@@ -38,7 +38,7 @@ jobs:
       - run:
           name: Deploy to staging
           command: |
-            ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "cd /var/www/riseup-pwa && git stash && git pull origin master && sudo chmod 777 /var/www/riseup-pwa/.circleci/post-install.sh && /var/www/riseup-pwa/.circleci/post-install.sh"
+            ssh -o StrictHostKeyChecking=no ${SSH_USER}@${SSH_HOST} "cd /var/www/devops-react-talk && git stash && git pull origin master && sudo chmod 777 /var/www/devops-react-talk/.circleci/post-install.sh && /var/www/devops-react-talk/.circleci/post-install.sh"
   deploy_to_production:
     <<: *container_config
     steps:
@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Deploy to production
           command: |
-            ssh -o StrictHostKeyChecking=no ${SSH_USER_PROD}@${SSH_HOST_PROD} "cd /var/www/riseup-pwa && git stash && git pull origin release && sudo chmod 777 /var/www/riseup-pwa/.circleci/post-install.sh && /var/www/riseup-pwa/.circleci/post-install.sh"
+            ssh -o StrictHostKeyChecking=no ${SSH_USER_PROD}@${SSH_HOST_PROD} "cd /var/www/devops-react-talk && git stash && git pull origin release && sudo chmod 777 /var/www/devops-react-talk/.circleci/post-install.sh && /var/www/devops-react-talk/.circleci/post-install.sh"
 workflows:
   version: 2.1
   build:
@@ -59,8 +59,8 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy_to_production:
-          filters:
-            branches:
-              only: release
+      #- deploy_to_production:
+       #   filters:
+       #     branches:
+        #      only: release
 
