@@ -56,6 +56,8 @@ workflows:
       - run_unit_tests
       # - check_code_style
       - deploy_to_staging:
+          requires: 
+            - run_unit_tests
           filters:
             branches:
               only: master
