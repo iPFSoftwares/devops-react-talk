@@ -48,7 +48,7 @@
 		}
 		else {
 			const error = await response.json();
-			console.log("Response error: ", error);
+			// console.log("Response error: ", error);
 			throw error;
 		}
 	}
