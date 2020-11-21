@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import InnovatorsMapTz from './InnovatorsMapTz';
+
+import Header from './components/Header';
+import InnovatorList from './components/InnovatorList';
+
+const innovatorsMap = new InnovatorsMapTz({
+  apiKey: "5fb1e0fc0d026d6e341c45ffb0819df265da723af1e5e2d461c7dfda"
+});
 
 function App() {
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  
+  useEffect(() => {
+    fetchInnovators();
+  }, []);
+
+  async function fetchInnovators(page = 1) {
+    setLoading(true);
+    const { data, ...pagination } = await innovatorsMap.getInnovators({
+      page
+    });
+
+    setData(data);
+    setLoading(false);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div class="mt-8 mx-auto max-w-5xl">
+      <Header />
+      <InnovatorList loading={isLoading} data={data} />
     </div>
   );
 }
