@@ -16,3 +16,18 @@ test('Shows image with alt', () => {
     const imageWithAlt = screen.getByAltText("Innovator Logo");
     expect(imageWithAlt).toBeInTheDocument();
 });
+
+test('Use default logo if no logo is provided', () => {
+    const stakeholder = {
+        name: "Dephics Company Limited",
+        locationName: "Mabatini, Lake Zone, 33214",
+        location: {
+            type: "Point", 
+            coordinates: [39.2411961, -6.774539]
+        }
+    };
+    
+    render(<InnovatorItem stakeholder={stakeholder} />);
+    const innovatorLogo = screen.queryByAltText("Innovator Logo");
+    expect(innovatorLogo).not.toBeInTheDocument();
+});
